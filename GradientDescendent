@@ -1,0 +1,72 @@
+# The %2.2f directive tells Python to format the number as at least two characters 
+# and to cut the precision to two characters after the decimal point. 
+# This is useful for printing floating-point numbers that represent currency.
+
+import matplotlib.pyplot as plt
+from pandas import read_csv
+import os
+import numpy as np
+
+# Load data
+data_path = os.path.join(os.getcwd(), "data\\blood-pressure.txt")
+dataset = read_csv(data_path, delim_whitespace=True)
+
+# We have 30 entries in our dataset and four features. The first feature is the ID of the entry.
+# The second feature is always 1. The third feature is the age and the last feature is the blood pressure.
+# We will now drop the ID and One feature for now, as this is not important.
+dataset = dataset.drop(['ID', 'One'], axis=1)
+
+hypothesis = lambda x, theta_0, theta_1: theta_0 + theta_1 * x
+
+def cost(X, y, t0, t1):
+    m = len(X) # the number of the training samples
+    c = np.power(np.subtract(hypothesis(X, t0, t1), y), 2)
+    return (1 / (2 * m)) * sum(c)
+
+X = dataset.values[:, 0]
+y = dataset.values[:, 1]
+#print('J(Theta) = %2.2f' % cost(X, y, 84, 1.24))
+
+
+
+
+fig = plt.figure()
+
+# Generate the data
+theta_1 = np.arange(-10, 14, 0.1)
+
+J_cost = []
+for t1 in theta_1:
+    J_cost += [ cost(X, y, 0, t1) ]
+
+plt.plot(theta_1, J_cost)
+
+plt.xlabel(r'$\theta_1$')
+plt.ylabel(r'$J(\theta)$')
+
+plt.show()
+
+import math
+# Now, we need to find such values of θ such that our cost function value is minimal. But how do we do that?
+# There are several possible algorithms, but the most popular is gradient descent. In order to understand the intuition 
+# behind the gradient descent method, let’s first plot it on the graph. 
+# For the sake of simplicity, we will assume a simpler hypothesis 
+# h(θ)=θ1∗x . Next, we will plot a simple 2D chart where 
+# x is the value of θ and y is the cost function at this point.
+# Example of the simple gradient descent algorithm taken from Wikipedia
+
+cur_x = 2.5 # The algorithm starts at point x
+gamma = 0.005 # Step size multiplier
+precision = 0.00001
+previous_step_size = cur_x
+
+df = lambda x: 2 * x * math.cos(x)
+
+# Remember the learning curve and plot it 
+
+while previous_step_size > precision:
+    prev_x = cur_x
+    cur_x += -gamma * df(prev_x)
+    previous_step_size = abs(cur_x - prev_x)
+
+print("The local minimum occurs at %f" % cur_x)
