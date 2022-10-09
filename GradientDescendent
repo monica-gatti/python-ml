@@ -53,7 +53,7 @@ import math
 # For the sake of simplicity, we will assume a simpler hypothesis 
 # h(θ)=θ1∗x . Next, we will plot a simple 2D chart where 
 # x is the value of θ and y is the cost function at this point.
-# Example of the simple gradient descent algorithm taken from Wikipedia
+# Example of the simple gradient descent algorithm taken from  Wikipedia
 
 cur_x = 2.5 # The algorithm starts at point x
 gamma = 0.005 # Step size multiplier
