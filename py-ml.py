@@ -35,5 +35,5 @@ print( 'Predicted blood pressure at 25 y.o.   = ', regr.predict(25) )
 print( 'Predicted blood pressure at 45 y.o.   = ', regr.predict(45) )
 print( 'Predicted blood pressure at 27 y.o.   = ', regr.predict(27) )
 print( 'Predicted blood pressure at 34.5 y.o. = ', regr.predict(34.5) )
-print( 'Predicted blood pressure at 78 y.o.   = ', regr.predict(78) )
+print( 'Predicted blood pressure at 77 y.o.   = ', regr.predict(77) )
 
